@@ -1,24 +1,31 @@
 from jobs import job1, job2, job3
 from logger import log
 
-jobs = [job1, job2, job3]
 job_status = {}
 
-for job in jobs:
-    print(f"Running {job.__name__}...")
+print("Running job1...")
+result1 = job1()
+log("job1", result1)
+job_status["job1"] = result1
 
-    result = job()
-    log(job.__name__, result)
+if result1 == "SUCCESS":
+    print("Running job2...")
+    result2 = job2()
+    log("job2", result2)
+    job_status["job2"] = result2
+else:
+    print("job2 skipped")
+    job_status["job2"] = "SKIPPED"
 
-    retries = 0
-    while result == "FAILED" and retries < 2:
-        print(f"{job.__name__} failed. Restarting...")
-        result = job()
-        log(job.__name__, result)
-        retries += 1
-
-    job_status[job.__name__] = result
+if job_status["job2"] == "SUCCESS":
+    print("Running job3...")
+    result3 = job3()
+    log("job3", result3)
+    job_status["job3"] = result3
+else:
+    print("job3 skipped")
+    job_status["job3"] = "SKIPPED"
 
 print("\nFinal Status:")
 for job, status in job_status.items():
-    print(f"{job} → {status}")
+    print(job, "→", status)
