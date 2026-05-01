@@ -1,4 +1,4 @@
-# batch-job-monitoring-system
+# Batch-job-monitoring-system
 This project simulates a batch job monitoring system used in production environments.
 ## Features
 - Job execution simulation
